@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { ToastContainer } from "react-toastify";
+import { Route, Routes } from 'react-router-dom';
+import Layout from './layout';
+import ViewSingleBudget from './pages/ViewSingleBudget';
+import ViewBudgetList from './pages/ViewBudgetList';
 
 
 
@@ -56,25 +60,24 @@ function BudgetManager() {
         });
     }, []);
   
-  return (
-    <div className="BudgetManager">
-      <ToastContainer/>
-      <header className="App-header bg-red-500">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+      <div className="BudgetManager">
+        <ToastContainer/>
+        <Routes>
+          <Route path="/view" element={<Layout/>}>
+          <Route path="/view/budget"  element={ <ViewBudgetList items={data} />} />
+          <Route
+            path="/view/budget/:id"
+            element={
+              <ViewSingleBudget
+                items={data}
+              />
+            }
+          />
+          </Route>
+        </Routes>
+      </div>
+    );
 }
 
 export default BudgetManager;
